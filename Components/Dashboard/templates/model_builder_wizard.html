@@ -1,0 +1,370 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+	<!-- iCheck -->
+	<link href="/static/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+	<!-- bootstrap-progressbar -->
+	<link href="/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+	<!-- JQVMap -->
+	<link href="/static/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+	<!-- bootstrap-daterangepicker -->
+	<link href="/static/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="/static/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+	<!-- jQuery Smart Wizard -->
+	<link href="/static/vendors/jQuery-Smart-Wizard/styles/smart_wizard4.css" rel="stylesheet">
+	<link href="/static/vendors/jQuery-Smart-Wizard/styles/smart_wizard_theme_arrows.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+	<!-- jQuery Smart Wizard -->
+	<script src="/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard4.js"></script>
+	<!-- bootstrap-progressbar -->
+    <script src="/static/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- Switchery -->
+	<script src="/static/vendors/switchery/dist/switchery.min.js"></script>
+	<!-- jQuery Knob -->
+	<script src="/static/vendors/jquery-knob/dist/jquery.knob.min.js"></script>
+	<!-- gauge.js -->
+    <script src="/static/vendors/gauge.js/dist/gauge.min.js"></script>
+	<script src="/static/scripts/model_builder_wizard.js"></script>
+	<script>
+	</script>
+{% endblock %}
+
+{% block content %}
+<div class="">
+	<div class="page-title">
+		<div class="title_left">
+			<h3>Create a new ML model</h3>
+		</div>
+
+		<div class="title_right">
+			<div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search for...">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">Go!</button>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+
+	<div class="row">
+
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_content">
+
+					{% set models = [("mlp", "block"), ("svm", "none"), ("kmeans", "none")] %}
+
+					<!-- Smart Wizard -->
+					<div id="model-wizard" class="sw-main sw-theme-arrows">
+						<ul class="step-anchor">
+							<li>
+								<a href="#step-1">
+									<!-- <span class="step_no">1</span> -->
+									<span class="step_descr">
+										Basic model details<br />
+										<small>Initialize your model</small>
+									</span>
+								</a>
+							</li>
+							<li>
+								<a href="#step-2">
+									<!-- <span class="step_no">2</span> -->
+									<span class="step_descr">
+										Training data<br />
+										<small>Specify training data details</small>
+									</span>
+								</a>
+							</li>
+							<li>
+								<a href="#step-3">
+									<!-- <span class="step_no">3</span> -->
+									<span class="step_descr">
+										Hyperparameters<br />
+										<small>Specify hyperparameters</small>
+									</span>
+								</a>
+							</li>
+							<li>
+								<a href="#step-4">
+									<!-- <span class="step_no">4</span> -->
+									<span class="step_descr">
+										Model parameters<br />
+										<small>Specify model parameters</small>
+									</span>
+								</a>
+							</li>
+							<li>
+								<a href="#step-5">
+									<!-- <span class="step_no">5</span> -->
+									<span class="step_descr">
+										Train model<br />
+										<small>Prepare and train the model</small>
+									</span>
+								</a>
+							</li>
+							<li>
+								<a href="#step-6">
+									<!-- <span class="step_no">6</span> -->
+									<span class="step_descr">
+										Deploy predictors<br />
+										<small>Deploy predictor instances for the model</small>
+									</span>
+								</a>
+							</li>
+						</ul>
+						<div class="sw-container">
+							<div id="step-1">
+								<h2 class="StepTitle">Specify the basic details for your ML model.</h2>
+								</br>
+								<form class="form-horizontal form-label-left">
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="base-model">Base Model <span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<select id="base-model" name="base-model" class="form-control">
+												<!-- <option selected></option> -->
+												<option selected>Multilayer Perceptron Network</option>
+												<option>SVM Classifier</option>
+												<option>K-Means Clustering</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="model-name">Model Name <span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="textarea" id="model-name" required="required" class="form-control col-md-7 col-xs-12">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="model-description">Description <span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<textarea id="model-description" name="model-description" class="form-control col-md-7 col-xs-12" rows="3"></textarea>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div id="step-2">
+								<h2 class="StepTitle">Specify the training data source and related options.</h2>
+								</br>
+								<form class="form-horizontal form-label-left">
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="data-source-type">Data Source Type <span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<select id="data-source-type" name="data-source-type" class="form-control">
+												<option selected>URL</option>
+												<option disabled="disabled">Existing</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="data-source-url">Data Source <span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="textarea" id="data-source-url" name="data-source-url" required="required" class="form-control col-md-7 col-xs-12">
+										</div>
+									</div>
+									<!-- <div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Data Processing Options 
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="data-ingestion-type">Data Ingestion Type 
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<select id="data-ingestion-type" name="data-ingestion-type" class="form-control">
+														<option></option>
+														<option>Batch</option>
+														<option disabled="disabled">Stream</option>
+													</select>
+												</div>
+											</div>
+											</br>
+											<div class="checkbox">
+												<label class="">
+													<div class="icheckbox_flat-green" style="position: relative;">
+														<input type="checkbox" class="flat" style="position: absolute; opacity: 0;">
+														<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
+														</ins>
+													</div>
+													One-hot Encoding for Categorical Data
+												</label>
+											</div>
+											</br>
+											<div class="checkbox">
+												<label class="">
+													<div class="icheckbox_flat-green" style="position: relative;">
+														<input type="checkbox" class="flat" style="position: absolute; opacity: 0;">
+														<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
+														</ins>
+													</div>
+													Feature Transformation - PCA (Principal Component Analysis)
+												</label>
+											</div>
+										</div>
+									</div> -->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="train-test-split">Train-Test Split <span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input id="train-test-split" class="knob" data-min="0" data-max="100" data-width="100" data-height="120" data-angleoffset="-125" data-anglearc="250" data-fgcolor="#34495E" data-rotation="clockwise" value="80" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; background: none; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(20, 10, 109); padding: 0px; -webkit-appearance: none;">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="data-schema-file">Data Schema 
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<input style="margin-top: 6px;" type="file" data-role="magic-overlay" id="data-schema-file" accept=".json">
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div id="step-3">
+								<h2 class="StepTitle">Specify the hyperparameters for your ML model.</h2>
+								</br>
+								<div id="hp-form">
+									{% for model, display in models %}
+										<div id="hp-form-inner-{{model}}" class="hp-form-inner">
+											{% include "hp_"+model+".html" %}
+										</div>
+										<script>
+											innerForm = document.getElementById("hp-form-inner-{{model}}");
+											innerForm.style.display = "{{display}}";
+										</script>
+									{% endfor %}
+								</div>
+							</div>
+							<div id="step-4">
+								<h2 class="StepTitle">Specify the internal model parameters for your ML model.</h2>
+								</br>
+								<div id="mp-form">
+									{% for model, display in models %}
+										<div id="mp-form-inner-{{model}}" class="mp-form-inner">
+											{% include "mp_"+model+".html" %}
+										</div>
+										<script>
+											innerForm = document.getElementById("mp-form-inner-{{model}}");
+											innerForm.style.display = "{{display}}";
+										</script>
+									{% endfor %}
+								</div>
+							</div>
+							<div id="step-5">
+								<h2 class="StepTitle">Start training your ML model.</h2>
+								</br>
+								<div>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<button id="train-model-button" class="btn btn-info" onclick="prepareModel()">Start training the ML model !</button>
+									</div>
+								</div>
+								<div>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<div id="progress-bar-holder" class="progress progress-striped progress_wide">
+											<div id="my-progress-bar" role="progressbar" class="progress-bar progress-bar-info" data-transitiongoal="0" aria-valuenow="0" style="width: 0%; height: 50px;"></div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group" style="clear: both;">
+									<br>
+									<br>
+									<div id="prepmodel-alert-dummy" class="alert alert-success fade in prepmodel-alert" role="alert" style="visibility: hidden;">
+										Dummy text.
+									</div>
+									<div id="prepmodel-alert-success" class="alert alert-success fade in prepmodel-alert" role="alert" style="display: none;">
+										Your model has been <strong>successfully prepared</strong>!
+									</div>
+									<div id="prepmodel-alert-failure" class="alert alert-danger fade in prepmodel-alert" role="alert" style="display: none;">
+										Model preparation failed.
+									</div>
+								</div>
+								<div class="form-group" style="clear: both;">
+									<div id="trainmodel-alert-dummy" class="alert alert-success fade in trainmodel-alert" role="alert" style="visibility: hidden;">
+										Dummy text.
+									</div>
+									<div id="trainmodel-alert-success" class="alert alert-success fade in trainmodel-alert" role="alert" style="display: none;">
+										Your model has been <strong>successfully trained</strong>!
+									</div>
+									<div id="trainmodel-alert-failure" class="alert alert-danger fade in trainmodel-alert" role="alert" style="display: none;">
+										Model training failed.
+									</div>
+								</div>
+								<div class="form-group" style="vertical-align: middle">
+									<div id="accuracy-meter-div" style="width: 200px; margin: 0 auto; visibility: hidden;">
+										<div class="sidebar-widget">
+											<h4>Training Accuracy</h4>
+											<canvas width="187" height="100" id="accuracy-meter" class="" style="width: 150px; height: 80px;"></canvas>
+											<div class="goal-wrapper">
+												<span id="accuracy-meter-gauge-text" class="gauge-value gauge-chart pull-left">0</span>
+												<span class="gauge-value pull-left">%</span>
+												<span id="accuracy-meter-goal-text" class="goal-value pull-right">100%</span>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<div id="step-6">
+								<h2 class="StepTitle">Deploy your trained model for prediction.</h2>
+								</br>
+								<form class="form-horizontal form-label-left">
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="num-predictors">Number of predictor instances to deploy <span class="required">*</span>
+										</label>
+										<div class="col-md-1 col-sm-1 col-xs-12"></div>
+										<div class="col-md-5 col-sm-5 col-xs-12">
+											<input id="num-predictors" class="knob" data-min="0" data-max="10" data-width="100" data-height="120" data-angleoffset="-125" data-anglearc="250" data-fgcolor="#34495E" data-rotation="clockwise" value="1" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; background: none; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(20, 10, 109); padding: 0px; -webkit-appearance: none;">
+										</div>
+										<div class="col-md-2 col-sm-2 col-xs-12">
+											<br>
+											<button id="deploy-predictors-button" class="btn btn-info btn-lg" onclick="deployPredictors(event)">Deploy predictors</button>
+										</div>
+										<div class="col-md-1 col-sm-1 col-xs-12"></div>
+									</div>
+									<div class="form-group">
+										<br>
+										<br>
+										<div id="deploypred-alert-dummy" class="alert alert-danger fade in deploypred-alert" role="alert" style="visibility: hidden;">
+											Dummy text.
+										</div>
+										<div id="deploy-predictors-loading" style="display: none;" class="icon"><i class="fa fa-spin fa-spinner"></i></div>
+										<div id="deploypred-alert-success" class="alert alert-success fade in deploypred-alert" role="alert" style="display: none;">
+											You have successfully deployed <strong><span id="predictor-count">0</span> predictor instances</strong> for your model!
+										</div>
+										<div id="deploypred-alert-warning" class="alert alert-danger fade in deploypred-alert" role="alert" style="display: none;">
+											Please train the model before attempting to deploy predictors for it.
+										</div>
+										<div id="deploypred-alert-failure" class="alert alert-danger fade in deploypred-alert" role="alert" style="display: none;">
+											Failed to deploy predictors.
+										</div>
+									</div>
+									<div class="form-group">
+										<br>
+										<br>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<a class="btn btn-warning" href="/predictors-details">View predictors</a>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- End SmartWizard Content -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

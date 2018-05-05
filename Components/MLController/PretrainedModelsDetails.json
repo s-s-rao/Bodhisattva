@@ -1,0 +1,9 @@
+[
+	{
+		"name": "MNIST",
+		"fullName": "MNIST Digits Image Recognition",
+		"description": "MNIST Digits Image Recognizer trained on a Linear SVM",
+		"deploymentTemplateFileName": "MNIST.json",
+		"pickleFileName": "MNIST.pkl"
+	}
+]

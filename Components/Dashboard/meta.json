@@ -1,0 +1,8 @@
+{
+	"CSPDatabaseIPAddress":  "localhost",
+	"CSPDatabaseUsername": "root",
+	"CSPDatabasePassword": "",
+	"CSPDatabaseName": "cspdb",
+	"DatabasePort": 3306,
+	"AppPort": 8383
+}

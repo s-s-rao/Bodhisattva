@@ -1,0 +1,149 @@
+{
+	"modelDetails": {
+		"modelName": {
+			"type": "string",
+			"description": "The name of the model.",
+			"value": ""
+		},
+		"modelDescription": {
+			"type": "string",
+			"description": "Some description for the model.",
+			"value": ""
+		},
+		"baseModelName": {
+			"type": "string",
+			"description": "The name of the basic model used to train the tenant's model.",
+			"value": ""
+		},
+		"baseModelId": {
+			"type": "string",
+			"description": "Global Model ID for the base model.",
+			"value": "",
+			"TODO:": "use Models table for this?"
+		}
+	},
+	"trainingDataDetails": {
+		"dataSourceType": {
+			"type": "select-string",
+			"options": [
+				"single",
+				"distributed"
+			],
+			"description": "The data source type for the training data.",
+			"value": ""
+		},
+		"dataSource": {
+			"type": "list",
+			"description": "The path(s) to the data source(s). If dataSourceType is single, then list should contain only one element.",
+			"value": [
+				{
+					"type": "string",
+					"description": "Represents the path of each data source.",
+					"value": ""
+				}
+			]
+		},
+		"dataIngestionType": {
+			"type": "select-string",
+			"options": [
+				"batch",
+				"stream"
+			],
+			"description": "The type of data available for ingestion by the ML Trainers.",
+			"value": ""
+		},
+		"dataFormat": {
+			"type": "list",
+			"description": "The training data schema. Each element of the list represents a column of the tabular data.",
+			"value": [
+				{
+					"type": "object",
+					"TODO:": "change from object to list?",
+					"description": "Details defining a column.",
+					"value": {
+						"columnNumber": {
+							"type": "number",
+							"description": "The column number in the tabular data. Starts from 0.",
+							"value": 0
+						},
+						"columnName": {
+							"type": "string",
+							"description": "The name of the feature (column). No spaces allowed.",
+							"value": ""
+						},
+						"dataType": {
+							"type": "select-string",
+							"options": [
+								"numerical",
+								"categorical"
+							],
+							"description": "The datatype of the data in the column.",
+							"value": ""
+						},
+						"isLabelColumn": {
+							"type": "boolean",
+							"description": "Whether the column represents the label (class).",
+							"value": false
+						}
+					}
+				}
+			]
+		}
+	},
+	"hyperparameters": {
+		"type": "list",
+		"description": "The available hyperparameters for the given ML model (MLPClassifier). If a HP has a defaultValue defined, then that will be the placeholder or first dropdown option that the tenant sees in the wizard UI.",
+		"value": [
+			{
+				"hyperparameterName": "epochs",
+				"type": "number",
+				"description": "Total number of times to iterate over all the data.",
+				"defaultValue": 200,
+				"value": 0
+			},
+			{
+				"hyperparameterName": "activation",
+				"type": "select-string",
+				"options": [
+					"relu",
+					"logistic",
+					"tanh",
+					"identity"
+				],
+				"description": "The activation function to use for training the neural network.",
+				"defaultValue": "relu",
+				"value": ""
+			},
+			{
+				"TODO:": "add all the hyperparameters for MLP and save file as MLPClassifierDeploymentTemplateRaw.json"
+			}
+		]
+	},
+	"modelParameters": {
+		"type": "list",
+		"description": "The available model parameters for the given ML model (MLPClassifier). Tenants may want to use default values for certain parameters, and hence, chooseDefault option is provided for the relevant parameters.",
+		"value": [
+			{
+				"modelParameterName": "weights",
+				"type": "list",
+				"chooseDefault": true,
+				"description": "The initial weights of the neural network. Tenant can choose to use default value and move on.",
+				"value": []
+			}
+		]
+	},
+	"trainingDeploymentParameters": {
+		"parallelizationMethod": {
+			"type": "select-string",
+			"options": [
+				"none",
+				"dataLevel",
+				"modelLevel",
+				"algorithmLevel"
+			],
+			"description": "The type of parallelization technique to apply, in order to enable distributed model training.",
+			"value": ""
+		},
+		"TODO:": "add more parameters here, like numTrainers, other parameters specific to parallelization methods, ANYTHING ELSE?"
+	}
+}

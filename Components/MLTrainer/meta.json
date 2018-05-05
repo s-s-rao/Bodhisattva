@@ -1,0 +1,9 @@
+{
+    "CSPDatabaseUsername": "rainmaker",
+    "CSPDatabasePort": 3306,
+    "DatabaseRootPassword": "root",
+    "AppPort": 8081,
+    "CSPDatabaseName": "CSPDb",
+    "CSPDatabaseIPAddress": "192.1.1.2",
+    "CSPDatabasePassword": "rainmaker"
+}

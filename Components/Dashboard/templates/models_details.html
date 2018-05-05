@@ -1,0 +1,161 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+	
+{% endblock %}
+
+{% block scripts %}
+	<script src="/static/scripts/models_details.js"></script>
+	<script></script>
+{% endblock %}
+
+{% block content %}
+<div class="">
+	<div class="row">
+		<div class="page-title">
+			<div class="title_left">
+				<h2><b>Model Details</b> <small>View details about your models here</small></h2>
+			</div>
+		</div>
+	</div>
+
+	<div class="row top_tiles">
+		<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-code"></i></div>
+				<div class="count" id="num-ml-algos">-</div>
+				<h3>ML algorithms</h3>
+				<p>available for custom training.</p>
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-magic"></i></div>
+				<div class="count" id="num-deployed-pretrained">-</div>
+				<h3>Pretrained</h3>
+				<p>models deployed.</p>
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-check-square"></i></div>
+				<div class="count" id="num-deployed-customtrained">-</div>
+				<h3>Custom-trained</h3>
+				<p>models deployed.</p>
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-rocket"></i></div>
+				<div class="count" id="num-undeployed-customtrained">-</div>
+				<h3>Custom-trained</h3>
+				<p>models ready for deployment.</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<!-- <div class="col-md-2 col-sm-2 col-xs-12"></div> -->
+
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h3>Custom-trained models <small>Models that were trained on custom training data, using our basic ML algorithms</small></h3>
+					<ul class="nav navbar-right panel_toolbox">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="x_content">
+					<div class="table-responsive">
+						<table class="table table-striped jambo_table">
+							<thead>
+								<tr class="headings">
+									<th class="column-title">Model Name </th>
+									<th class="column-title">Description </th>
+									<th class="column-title no-link last"><span class="nobr">Action</span>
+									</th>
+								</tr>
+							</thead>
+
+							<tbody id="table-body-customtrained">
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- <div class="col-md-2 col-sm-2 col-xs-12"></div> -->
+	</div>
+
+	<div class="row">
+		<div class="col-md-6 col-sm-6 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h3>Pretrained models <small>Readily deployable models that require no custom training</small></h3>
+					<ul class="nav navbar-right panel_toolbox">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="x_content">
+					<div class="table-responsive">
+						<table class="table table-striped jambo_table">
+							<thead>
+								<tr class="headings">
+									<th class="column-title">Model Name </th>
+									<th class="column-title">Description </th>
+									<th class="column-title no-link last"><span class="nobr">Action</span>
+									</th>
+								</tr>
+							</thead>
+
+							<tbody id="table-body-pretrained">
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6 col-sm-6 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h3>Untrained models <small>Readily trainable ML algorithms that can be trained from scratch, on custom training data</small></h3>
+					<ul class="nav navbar-right panel_toolbox">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="x_content">
+					<div class="table-responsive">
+						<table class="table table-striped jambo_table">
+							<thead>
+								<tr class="headings">
+									<th class="column-title">Model Name </th>
+									<th class="column-title">Description </th>
+									<th class="column-title no-link last"><span class="nobr">Action</span>
+									</th>
+								</tr>
+							</thead>
+
+							<tbody id="table-body-untrained">
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

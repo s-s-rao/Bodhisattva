@@ -1,0 +1,8 @@
+[
+	{
+		"name": "MLPClassifier",
+		"fullName": "Multi-Layer Perceptron Classifier",
+		"description": "Multi-Layer Perceptron, aka, Neural Network",
+		"deploymentTemplateFileName": "MLPClassifier.json"
+	}
+]

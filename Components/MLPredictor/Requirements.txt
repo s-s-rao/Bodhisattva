@@ -1,0 +1,8 @@
+Flask==0.12.2
+PyMySQL==0.6.1
+Requests==2.18.4
+pandas==0.22.0
+numpy==1.14.1
+scipy==0.19.1
+scikit-learn==0.19.1
+Pillow==4.2.1

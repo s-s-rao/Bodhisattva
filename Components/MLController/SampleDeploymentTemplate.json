@@ -1,0 +1,54 @@
+{
+	"modelDetails": {
+		"modelName": "",
+		"modelDescription": "",
+		"baseModelName": "MultiLayerPerceptron",
+		"baseModelId": ""
+	},
+	"trainingDataDetails": {
+		"dataSourceType": "single/distributed",
+		"dataSource": "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
+		"dataType": "batch/stream",
+		"dataFormat": [
+			{
+				"columnNumber": 0,
+				"columnName": "",
+				"dataType": "",
+				"isLabelColumn": false
+			},
+			{
+				"columnNumber": 1,
+				"columnName": "",
+				"dataType": "",
+				"isLabelColumn": true
+			}
+		]
+	},
+	"hyperparameters": {
+		"epochs": 10000,
+		"accuracyThreshold": 90,
+		"inputLayerSize": 3,
+		"outputLayerSize": 4,
+		"numHiddenLayers": 2,
+		"hiddenLayerSizes": [ 3, 4 ]
+	},
+	"modelParameters": {
+		"weights": [
+			[
+				1, 1.5, 1.2
+			],
+			[
+				0.5, 2, 1
+			],
+			[
+				1, 1, 1, 1
+			],
+			[
+				1, 1, 1
+			]
+		]
+	},
+	"trainingDeploymentParameters": {
+		"parallelizationMethod": "none"
+	}
+}

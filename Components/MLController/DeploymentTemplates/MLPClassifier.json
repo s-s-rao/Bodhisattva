@@ -1,0 +1,215 @@
+{
+	"modelDetails": {
+		"modelName": {
+			"type": "string",
+			"description": "The name of the model. Only alphanumeric and special characters (-,_,) allowed. No spaces allowed.",
+			"value": ""
+		},
+		"modelDescription": {
+			"type": "string",
+			"description": "Some description for the model.",
+			"value": ""
+		},
+		"baseModelName": {
+			"type": "string",
+			"description": "The name of the basic model used to train the tenant's model.",
+			"value": "MLPClassifier"
+		},
+		"baseModelId": {
+			"type": "number",
+			"description": "Global Model ID for the base model.",
+			"value": 0
+		}
+	},
+	"trainingDataDetails": {
+		"dataSourceType": {
+			"type": "select-string",
+			"options": [
+				"URL",
+				"Existing"
+			],
+			"description": "The data source type for the training data.",
+			"value": ""
+		},
+		"dataSourceURL": {
+			"type": "string",
+			"description": "The URL path to the data source.",
+			"value": ""
+		},
+		"dataSourceExisting": {
+			"type": "select-string",
+			"options": [
+				
+			],
+			"description": "The paths to the data files already existing in the tenant's volume.",
+			"value": ""
+		},
+		"trainTestSplit": {
+			"type": "number",
+			"description": "A number slider or input knob to select train-test split for the data. The value of this attribute represents the percentage of the data set aside for TRAINING.",
+			"range": [10,90],
+			"defaultValue": 80,
+			"value": 80
+		},
+		"dataSchema": {
+			"type": "list",
+			"description": "The training data schema. Each element of the list represents a column of the tabular data.",
+			"value": [
+				{
+					"type": "object",
+					"TODO:": "change from object to list?",
+					"description": "Details defining a column.",
+					"value": {
+						"columnName": {
+							"type": "string",
+							"description": "The name of the feature (column). No spaces allowed.",
+							"value": ""
+						},
+						"dataType": {
+							"type": "select-string",
+							"options": [
+								"numerical",
+								"categorical"
+							],
+							"description": "The datatype of the data in the column.",
+							"value": ""
+						},
+						"isLabelColumn": {
+							"type": "boolean",
+							"description": "Whether the column represents the label (class).",
+							"value": false
+						},
+						"ignoreColumn": {
+							"type": "boolean",
+							"description": "Whether the column is ot be ignored when training the model.",
+							"value": false
+						}
+					}
+				}
+			]
+		}
+	},
+	"hyperparameters": {
+		"type": "list",
+		"description": "The available hyperparameters for the given ML model (MLPClassifier). If a HP has a defaultValue defined, then that will be the placeholder or first dropdown option that the tenant sees in the wizard UI.",
+		"HTaaS": {
+			"type": "boolean",
+			"description": "A checkbox that allows the user to select Hyperparameter-Tuning-as-a-Service",
+			"value": false,
+			"TODO:": "If HTaaS is selected, convert all hyperparameters here to two values (range) instead of single value, so that user can define lower bound and upper bound on HPs. But this will only work for numerical data, plus we dont know what level of granularity to apply within the range (ex: if range is [1,2], then should we take 1,1.1,1.2,...,2 or 1,1.2,1.4,...,2). Categorical HPs (like activation function, solver) will be a list of options that the HTaaS can choose from. In conclusion, we need a different way of handling HTaaS."
+		},
+		"value": [
+			{
+				"hyperparameterName": "Hidden Layers",
+				"hyperparameterNameDev": "hidden_layer_sizes",
+				"type": "list",
+				"description": "Describes the shape of the hidden layers. Each element of the list represents a hidden layer, while the value of each element denotes the number of neurons in that layer.",
+				"defaultValue": [10, 10],
+				"value": [10, 10]
+			},
+			{
+				"hyperparameterName": "Activation Function",
+				"hyperparameterNameDev": "activation",
+				"type": "select-string",
+				"options": [
+					"relu",
+					"logistic",
+					"tanh"
+				],
+				"description": "The activation function used for hidden layers.",
+				"defaultValue": "relu",
+				"value": "relu"
+			},
+			{
+				"hyperparameterName": "Solver",
+				"hyperparameterNameDev": "solver",
+				"type": "select-string",
+				"options": [
+					"adam",
+					"sgd"
+				],
+				"description": "The solver for weight optimization.",
+				"defaultValue": "adam",
+				"value": "adam"
+			},
+			{
+				"hyperparameterName": "Learning Rate",
+				"hyperparameterNameDev": "learning_rate_init",
+				"type": "number",
+				"description": "Learning rate for the solver, that controls step-size in updating the weights.",
+				"defaultValue": 0.001,
+				"value": 0.001
+			},
+			{
+				"hyperparameterName": "Epochs",
+				"hyperparameterNameDev": "max_iter",
+				"type": "number",
+				"description": "Total number of times to iterate over all the data.",
+				"defaultValue": 200,
+				"value": 200
+			},
+			{
+				"hyperparameterName": "Shuffle",
+				"hyperparameterNameDev": "shuffle",
+				"type": "boolean",
+				"description": "Whether to shuffle samples in each iteration.",
+				"defaultValue": true,
+				"value": true
+			},
+			{
+				"hyperparameterName": "Random State",
+				"hyperparameterNameDev": "random_state",
+				"type": "number",
+				"description": "If int, it is the seed used by the random number generator. Can also be null, ie, to be ignored.",
+				"defaultValue": null,
+				"value": null
+			},
+			{
+				"hyperparameterName": "Momentum",
+				"hyperparameterNameDev": "momentum",
+				"type": "range-number",
+				"range": [0, 1],
+				"description": "Momentum for gradient descent update. Render only if sgd solver is selected",
+				"defaultValue": 0.9,
+				"value": 0.9
+			}
+		]
+	},
+	"modelParameters": {
+		"type": "list",
+		"description": "The available model parameters for the given ML model (MLPClassifier). Tenants may want to use default values for certain parameters, and hence, provideDefaultOption option is provided for the relevant parameters.",
+		"value": [
+			{
+				"modelParameterName": "weights",
+				"modelParameterNameDev": "coefs_",
+				"type": "list",
+				"provideDefaultOption": true,
+				"description": "The initial weight matrices of the neural network. Tenant can choose to use default value and move on. If the user chooses to provide the weight matrix, it must be a list of length n_layers-1, where the ith element represents the weight matrix corresponding to layer i.",
+				"value": [],
+				"useDefault": false
+			}
+		]
+	},
+	"trainingDeploymentParameters": {
+		"parallelizationMethod": {
+			"type": "select-string",
+			"options": [
+				"none",
+				"modelLevel",
+				"dataLevel",
+				"algorithmLevel"
+			],
+			"selectableOptions": [
+				true,
+				true,
+				false,
+				false
+			],
+			"description": "The type of parallelization technique to apply, in order to enable distributed model training.",
+			"defautValue": "none",
+			"value": "none",
+			"TODO:": "If HTaaS selected in hyperparameters selection page, then show 'modelLevel' in the dropdown as default, and disable all other options. If user unselects HTaaS, undo these changes."
+		},
+		"TODO:": "add more parameters here, like numTrainers, other parameters specific to parallelization methods, ANYTHING ELSE?"
+	}
+}

@@ -1,0 +1,53 @@
+{
+	"getDeploymentTemplate": {
+		"type": "object",
+		"properties": {
+			"modelId": {"type": "number"},
+			"tenantId": {"type": "number"}
+		}
+	},
+	"prepareModel": {
+		"type": "object",
+		"properties": {
+			"tenantId": {"type": "number"},
+			"deploymentTemplate": {"type": "object"}
+		}
+	},
+	"trainModel": {
+		"type": "object",
+		"properties": {
+			"modelId": {"type": "number"},
+			"tenantId": {"type": "number"}
+		}
+	},
+	"stopModelTraining": {
+		"type": "object",
+		"properties": {
+			"modelId": {"type": "number"},
+			"tenantId": {"type": "number"}
+		}
+	},
+	"getTrainingProgress": {
+		"type": "object",
+		"properties": {
+			"modelId": {"type": "number"},
+			"tenantId": {"type": "number"}
+		}
+	},
+	"startPredictors": {
+		"type": "object",
+		"properties": {
+			"modelId": {"type": "number"},
+			"tenantId": {"type": "number"},
+			"numPredictors": {"type": "integer", "minimum": 1, "maximum": 10}
+		}
+	},
+	"stopPredictors": {
+		"type": "object",
+		"properties": {
+			"modelId": {"type": "number"},
+			"tenantId": {"type": "number"},
+			"numPredictors": {"type": "integer", "minimum": 1, "maximum": 10}
+		}
+	}
+}
